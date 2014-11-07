@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -87,10 +90,12 @@ public class MainActivity extends Activity {
                     @Override
                     public void run(){
                         TextView textView = (TextView)findViewById(R.id.textViewCounter);
-                        textView.setText(_counter + "");
+                        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+                        Date date = new Date();
+                        textView.setText(dateFormat.format(date));
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, 100);
     }
 }
