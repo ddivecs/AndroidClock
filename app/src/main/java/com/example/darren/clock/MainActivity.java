@@ -40,6 +40,28 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // We are using a few anonymous classes here; which makes the code a little more
+        // complex looking than it really is. The schedule method of Timer takes in a TimerTask,
+        // followed by a long delay (in milliseconds) and a long period (in milliseconds)
+        _timerCount.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                _counter++;
+
+                // Use the handler to marshal/invoke the Runnable code on the UI thread
+                _uiHandler.post(new Runnable(){
+                    @Override
+                    public void run(){
+                        TextView textView = (TextView)findViewById(R.id.textViewCounter);
+                        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+                        Date date = new Date();
+                        textView.setText(dateFormat.format(date));
+                    }
+                });
+            }
+        }, 0, 100);
     }
 
 
@@ -76,26 +98,6 @@ public class MainActivity extends Activity {
         //View buttonView = findViewById(R.id.buttonStartTimer);
         //view.setEnabled(false);
 
-        // We are using a few anonymous classes here; which makes the code a little more
-        // complex looking than it really is. The schedule method of Timer takes in a TimerTask,
-        // followed by a long delay (in milliseconds) and a long period (in milliseconds)
-        _timerCount.schedule(new TimerTask() {
 
-            @Override
-            public void run() {
-                _counter++;
-
-                // Use the handler to marshal/invoke the Runnable code on the UI thread
-                _uiHandler.post(new Runnable(){
-                    @Override
-                    public void run(){
-                        TextView textView = (TextView)findViewById(R.id.textViewCounter);
-                        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-                        Date date = new Date();
-                        textView.setText(dateFormat.format(date));
-                    }
-                });
-            }
-        }, 0, 100);
     }
 }
