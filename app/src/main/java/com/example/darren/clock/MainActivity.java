@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
                     @Override
                     public void run(){
                         TextView textView = (TextView)findViewById(R.id.textViewCounter);
-                        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss.SSS");
                         Date date = new Date();
                         textView.setText(dateFormat.format(date));
                     }
