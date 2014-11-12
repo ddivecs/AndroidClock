@@ -149,7 +149,7 @@ public class ClockView extends View{
         int minPaddleMovement = (getHeight()-rightPaddleHeight)/60;
 
         //ball settings
-        if(currMins < 31) {
+        if(currSeconds < 31) {
             //width - ball+paddle width into 30 sections * num of mins passed
             ballLeft = (getWidth() - 30) / 30 * currSeconds;
         }else{
