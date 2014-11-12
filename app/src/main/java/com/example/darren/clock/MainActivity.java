@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
     // http://developer.android.com/reference/android/os/Handler.html
     private Handler _uiHandler = new Handler();
 
-    private Calendar c = Calendar.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,37 +60,18 @@ public class MainActivity extends Activity {
                         TextView textView = (TextView)findViewById(R.id.textViewCounter);
                         ClockView clockView = (ClockView)findViewById(R.id.clockView);
 
-                        int currSeconds = c.get(Calendar.SECOND);
-                        int currMins = c.get(Calendar.MINUTE);
-                        int currHours = c.get(Calendar.HOUR);
-
-                        int viewHeight = clockView.getHeight();
-                        int viewWidth = clockView.getWidth();
-
-
-
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss.SSS");
                         Date date = new Date();
                         textView.setText(dateFormat.format(date));
 
-//                        clockView.setLeftPaddleTop((viewHeight - 100) / 12 * currHours);
-//                        clockView.setRightPaddleTop((viewHeight - 100) / 60 * currMins);
-//
-//                        if(currMins < 31) {
-//                            clockView.setBallLeft((viewWidth - 25) / 30 * currSeconds);
-//
-//                        }else{
-//                            clockView.setBallLeft((viewWidth - 25) / 30 * (60-currSeconds));
-//
-//                        }
-
                         clockView.update();
                         clockView.invalidate();
+                        //clockView.requestLayout();
                         //_uiHandler.postDelayed(this, 1000);
                     }
                 });
             }
-        }, 0, 100);
+        }, 0, 1000);
     }
 
 

@@ -26,6 +26,8 @@ public class ClockView extends View{
 
     public void setLeftPaddleTop(int leftPaddleTop) {
         this.leftPaddleTop = leftPaddleTop;
+//        invalidate();
+//        requestLayout();
     }
 
     public int getLeftPaddleHeight() {
@@ -34,6 +36,8 @@ public class ClockView extends View{
 
     public void setLeftPaddleHeight(int leftPaddleHeight) {
         this.leftPaddleHeight = leftPaddleHeight;
+//        invalidate();
+//        requestLayout();
     }
 
     public int getRightPaddleTop() {
@@ -42,6 +46,10 @@ public class ClockView extends View{
 
     public void setRightPaddleTop(int rightPaddleTop) {
         this.rightPaddleTop = rightPaddleTop;
+
+//        invalidate();
+//        requestLayout();
+
     }
 
     public int getRightPaddleHeight() {
@@ -50,6 +58,8 @@ public class ClockView extends View{
 
     public void setRightPaddleHeight(int rightPaddleHeight) {
         this.rightPaddleHeight = rightPaddleHeight;
+//        invalidate();
+//        requestLayout();
     }
 
     public int getBallTop() {
@@ -58,6 +68,8 @@ public class ClockView extends View{
 
     public void setBallTop(int ballTop) {
         this.ballTop = ballTop;
+//        invalidate();
+//        requestLayout();
     }
 
     public int getBallLeft() {
@@ -66,6 +78,8 @@ public class ClockView extends View{
 
     public void setBallLeft(int ballLeft) {
         this.ballLeft = ballLeft;
+//        invalidate();
+//        requestLayout();
     }
 
     public ClockView(Context context) {
@@ -88,43 +102,59 @@ public class ClockView extends View{
         numMins = 60;
         numSecs = 60;
 
-//get current time
+        int currSeconds = c.get(Calendar.SECOND);
+        int currMins = c.get(Calendar.MINUTE);
+        int currHours = c.get(Calendar.HOUR);
 
+//paddle settings
+        
+        leftPaddleHeight = 100;
+        rightPaddleHeight = 100;
+        paddleWidth = 10;
+        leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
+        rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
+
+        //ball settings
+        ballTop = 0;
         ballWidth = 20;
         ballHeight = 20;
 
+
+        if(currMins < 31) {
+            //width - ball+paddle width into 30 sections * num of mins passed
+            ballLeft = (getWidth() - 30) / 30 * currSeconds;
+        }else{
+            ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
+        }
 
         //paint settings
         _clockPaint.setColor(Color.RED);
         _clockPaint.setAntiAlias(true);
     }
 
+    //updates all the values we need to update
     public void update(){
+
+        //get current time
+        c = Calendar.getInstance();
         int currSeconds = c.get(Calendar.SECOND);
         int currMins = c.get(Calendar.MINUTE);
         int currHours = c.get(Calendar.HOUR);
 
-
-        //paddle settings
         leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
-        leftPaddleHeight = 100;
-
         rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
-        rightPaddleHeight = 100;
 
         //paddle movement settings
         int hourPaddleMovement = (getHeight()-leftPaddleHeight)/12;
         int minPaddleMovement = (getHeight()-rightPaddleHeight)/60;
 
-
-
-
-        paddleWidth = 10;
-
         //ball settings
-        ballLeft = paddleWidth;
-        ballTop = 0;
-
+        if(currMins < 31) {
+            //width - ball+paddle width into 30 sections * num of mins passed
+            ballLeft = (getWidth() - 30) / 30 * currSeconds;
+        }else{
+            ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
+        }
     }
 
     @Override
@@ -132,10 +162,6 @@ public class ClockView extends View{
 
 
         super.onDraw(canvas);
-
-
-        System.out.println("ballLeft = "+ballLeft);
-        System.out.println("rightPaddleTop = "+ rightPaddleTop);
 
         //draw the three rectangles
         canvas.drawRect(0, leftPaddleTop, paddleWidth, leftPaddleTop + leftPaddleHeight, _clockPaint);
