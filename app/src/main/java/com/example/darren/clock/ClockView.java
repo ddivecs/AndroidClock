@@ -24,63 +24,37 @@ public class ClockView extends View{
         return leftPaddleTop;
     }
 
-    public void setLeftPaddleTop(int leftPaddleTop) {
-        this.leftPaddleTop = leftPaddleTop;
-//        invalidate();
-//        requestLayout();
-    }
+    public void setLeftPaddleTop(int leftPaddleTop) {  this.leftPaddleTop = leftPaddleTop;    }
 
     public int getLeftPaddleHeight() {
         return leftPaddleHeight;
     }
 
-    public void setLeftPaddleHeight(int leftPaddleHeight) {
-        this.leftPaddleHeight = leftPaddleHeight;
-//        invalidate();
-//        requestLayout();
-    }
+    public void setLeftPaddleHeight(int leftPaddleHeight) {this.leftPaddleHeight = leftPaddleHeight;    }
 
     public int getRightPaddleTop() {
         return rightPaddleTop;
     }
 
-    public void setRightPaddleTop(int rightPaddleTop) {
-        this.rightPaddleTop = rightPaddleTop;
-
-//        invalidate();
-//        requestLayout();
-
-    }
+    public void setRightPaddleTop(int rightPaddleTop) {  this.rightPaddleTop = rightPaddleTop;    }
 
     public int getRightPaddleHeight() {
         return rightPaddleHeight;
     }
 
-    public void setRightPaddleHeight(int rightPaddleHeight) {
-        this.rightPaddleHeight = rightPaddleHeight;
-//        invalidate();
-//        requestLayout();
-    }
+    public void setRightPaddleHeight(int rightPaddleHeight) {this.rightPaddleHeight = rightPaddleHeight;    }
 
     public int getBallTop() {
         return ballTop;
     }
 
-    public void setBallTop(int ballTop) {
-        this.ballTop = ballTop;
-//        invalidate();
-//        requestLayout();
-    }
+    public void setBallTop(int ballTop) {   this.ballTop = ballTop;    }
 
     public int getBallLeft() {
         return ballLeft;
     }
 
-    public void setBallLeft(int ballLeft) {
-        this.ballLeft = ballLeft;
-//        invalidate();
-//        requestLayout();
-    }
+    public void setBallLeft(int ballLeft) {this.ballLeft = ballLeft;}
 
     public ClockView(Context context) {
         super(context);
@@ -141,10 +115,13 @@ public class ClockView extends View{
         int currMins = c.get(Calendar.MINUTE);
         int currHours = c.get(Calendar.HOUR);
 
+        //set paddle top locations (their height stays the same)
+        //height - 100 (so the top doesn't reach the bottom of the screen)
         leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
         rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
 
         //paddle movement settings
+        //This was a test thing so see if we want to keep this in the works
         int hourPaddleMovement = (getHeight()-leftPaddleHeight)/12;
         int minPaddleMovement = (getHeight()-rightPaddleHeight)/60;
 
@@ -159,8 +136,6 @@ public class ClockView extends View{
 
     @Override
     public void onDraw(Canvas canvas){
-
-
         super.onDraw(canvas);
 
         //draw the three rectangles
