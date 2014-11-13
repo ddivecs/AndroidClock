@@ -151,10 +151,12 @@ public class ClockView extends View{
         super.onDraw(canvas);
 
 
-        if(c.get(Calendar.AM_PM) == Calendar.AM)
+        /*if(c.get(Calendar.AM_PM) == Calendar.AM)
             _clockPaint.setColor(Color.WHITE);
         else
-            _clockPaint.setColor(Color.BLACK);
+            _clockPaint.setColor(Color.BLACK);*/
+
+        _clockPaint.setColor( Color.rgb(c.get(Calendar.HOUR) * 255/12,c.get(Calendar.MINUTE) * 255/60,c.get(Calendar.SECOND) *255/60));
         canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
 
         _clockPaint.setColor(Color.RED);
