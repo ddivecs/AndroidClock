@@ -117,9 +117,11 @@ public class ClockView extends View{
 
         //set paddle top locations (their height stays the same)
         //height - 100 (so the top doesn't reach the bottom of the screen)
-        leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
-        rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
+        //leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
+        //rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
 
+        leftPaddleTop = (getHeight()-leftPaddleHeight)/(numHours/2) * (numHours/2 - Math.abs(numHours/2 - currHours)) ;
+        rightPaddleTop = (getHeight()-rightPaddleHeight)/(numMins/2)*(numMins/2-Math.abs(numMins/2-currMins));
         //paddle movement settings
         //This was a test thing so see if we want to keep this in the works
         double hourPaddleMovement = (getHeight()-leftPaddleHeight)/12;
@@ -133,10 +135,11 @@ public class ClockView extends View{
             ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
         }*/
 
-        ballLeft = (getWidth() - 30)/30 * (30 - Math.abs(30-currSeconds)) + paddleWidth;
 
-        double leftY = leftPaddleTop-leftPaddleHeight/2;
-        double rightY = rightPaddleTop - rightPaddleHeight/2;
+        ballLeft = (getWidth() - numSecs/2)/(numSecs/2) * (numSecs/2 - Math.abs(numSecs/2-currSeconds)) + paddleWidth;
+
+        double leftY = leftPaddleTop+leftPaddleHeight/2;
+        double rightY = rightPaddleTop + rightPaddleHeight/2;
 
 
         ballTop = (leftY-rightY)/(-1*(getWidth() -  2.0*paddleWidth )) * ballLeft + (leftPaddleTop + 40);
