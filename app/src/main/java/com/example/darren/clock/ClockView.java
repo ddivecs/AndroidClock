@@ -151,10 +151,10 @@ public class ClockView extends View{
         super.onDraw(canvas);
 
 
-        /*if(c.get(Calendar.AM_PM) == Calendar.AM)
+        if(c.get(Calendar.AM_PM) == Calendar.AM)
             _clockPaint.setColor(Color.WHITE);
         else
-            _clockPaint.setColor(Color.BLACK);*/
+            _clockPaint.setColor(Color.BLACK);
         int currSeconds = c.get(Calendar.SECOND);
         int currMins = c.get(Calendar.MINUTE);
         int currHours = c.get(Calendar.HOUR);
@@ -162,7 +162,7 @@ public class ClockView extends View{
         int colorR = (int)((numHours/2 - Math.abs(numHours/2 - currHours)) * 255/(numHours/2));
         int colorG = (int)((numMins/2-Math.abs(numMins/2-currMins)) * 255/(numMins/2));
         int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
-        _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
+
         canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
 
         _clockPaint.setColor(Color.RED);
@@ -174,7 +174,7 @@ public class ClockView extends View{
         //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
 
         _clockPaint.setTextSize(ballHeight);
-        _clockPaint.setColor(Color.GRAY);
+        _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
         canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
         canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
         canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
