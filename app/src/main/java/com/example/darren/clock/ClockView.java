@@ -1,10 +1,12 @@
 package com.example.darren.clock;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,7 +15,7 @@ import java.util.Calendar;
 /**
  * Created by Matt on 11/11/2014.
  */
-public class ClockView extends View{
+public class ClockView extends View {
 
     private Paint _clockPaint = new Paint();
     private float leftPaddleTop, leftPaddleHeight, rightPaddleTop, rightPaddleHeight, paddleWidth,
@@ -26,25 +28,16 @@ public class ClockView extends View{
 
     Calendar c = Calendar.getInstance();
 
-    public void setTextColor(){
-        if(textColor){
-            textColor = false;
-        }else
-            textColor = true;
+    public void setTextColor(Boolean _textColor){
+        textColor = _textColor;
     }
 
-    public void setBackgroundColorChange(){
-        if(backgroundColorChange)
-            backgroundColorChange = false;
-        else
-            backgroundColorChange = true;
+    public void setBackgroundColorChange(Boolean bgColor){
+        backgroundColorChange = bgColor;
     }
 
-    public void setPongAnimation(){
-        if(pongAnimation)
-            pongAnimation = false;
-        else
-            pongAnimation = true;
+    public void setPongAnimation(Boolean pongAni){
+        pongAnimation = pongAni;
     }
 
     public void setMilitaryTime(){
