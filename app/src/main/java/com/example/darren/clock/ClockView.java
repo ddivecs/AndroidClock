@@ -96,9 +96,9 @@ public class ClockView extends View{
 
         if(currMins < 31) {
             //width - ball+paddle width into 30 sections * num of mins passed
-            ballLeft = (getWidth() - 30) / 30 * currSeconds;
+            ballLeft = ((getWidth() - 30) / 30 * currSeconds) + paddleWidth;
         }else{
-            ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
+            ballLeft = (getWidth() - 30) / 30 * (60-currSeconds) + paddleWidth;
         }
 
         //paint settings
@@ -133,13 +133,13 @@ public class ClockView extends View{
             ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
         }*/
 
-        ballLeft = (getWidth() - 30)/30 * (30 - Math.abs(30-currSeconds));
+        ballLeft = (getWidth() - 30)/30 * (30 - Math.abs(30-currSeconds)) + paddleWidth;
 
         double leftY = leftPaddleTop-leftPaddleHeight/2;
         double rightY = rightPaddleTop - rightPaddleHeight/2;
 
 
-        ballTop = (leftY-rightY)/(-1*(getWidth() -  2.0*paddleWidth )) * ballLeft + (leftPaddleTop);
+        ballTop = (leftY-rightY)/(-1*(getWidth() -  2.0*paddleWidth )) * ballLeft + (leftPaddleTop + 40);
         invalidate();
     }
 
