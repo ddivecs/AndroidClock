@@ -150,17 +150,24 @@ public class ClockView extends View{
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
+
+        if(c.get(Calendar.AM_PM) == Calendar.AM)
+            _clockPaint.setColor(Color.WHITE);
+        else
+            _clockPaint.setColor(Color.BLACK);
+        canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
+
         _clockPaint.setColor(Color.RED);
         //draw the three rectangles
         canvas.drawRect(0, (int)leftPaddleTop, (int)paddleWidth, (int)leftPaddleTop + (int)leftPaddleHeight, _clockPaint);
 
 
-        canvas.drawRect(getWidth()-(int)paddleWidth, (int)rightPaddleTop, getWidth(), (int)rightPaddleTop + (int)rightPaddleHeight, _clockPaint);
+        canvas.drawRect(getWidth() - (int) paddleWidth, (int) rightPaddleTop, getWidth(), (int) rightPaddleTop + (int) rightPaddleHeight, _clockPaint);
         //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
 
         _clockPaint.setTextSize(ballHeight);
-        _clockPaint.setColor(Color.BLACK);
-        canvas.drawText(c.get(Calendar.HOUR)+"", 0, (float)leftPaddleTop, _clockPaint);
+        _clockPaint.setColor(Color.GRAY);
+        canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
         canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
         canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
     }
