@@ -65,7 +65,6 @@ public class MainActivity extends Activity {
                         textView.setText(dateFormat.format(date));
 
                         clockView.update();
-                        clockView.invalidate();
                         //clockView.requestLayout();
                         //_uiHandler.postDelayed(this, 1000);
                     }
