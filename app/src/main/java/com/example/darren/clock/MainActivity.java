@@ -1,6 +1,7 @@
 package com.example.darren.clock;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -92,9 +93,8 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
 
-            getFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new SettingsActivityFragment())
-                    .commit();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

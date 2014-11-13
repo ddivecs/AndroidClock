@@ -6,32 +6,52 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Created by Matt on 11/12/2014.
  */
-public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsActivity extends PreferenceActivity{
 
         @Override
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
 
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+            for(int i = 0; i < 10; i++)
+                System.err.println("******");
+
+
+
             //display fragment as main activity
             getFragmentManager().beginTransaction()
                     .replace(android.R.id.content, new SettingsActivityFragment())
                     .commit();
-        }
 
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            ClockView clockView = (ClockView)findViewById(R.id.clockView);
-            Boolean pongAni = sharedPreferences.getBoolean("pongAnimation", false);
-            Boolean textColor = sharedPreferences.getBoolean("textColorChange", false);
-            Boolean bgColor = sharedPreferences.getBoolean("backgroundColorChange", false);
+            SharedPreferences.OnSharedPreferenceChangeListener listener =
+                    new SharedPreferences.OnSharedPreferenceChangeListener() {
+                        public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                            ClockView clockView = (ClockView)findViewById(R.id.clockView);
+                            Boolean pongAni = prefs.getBoolean("pongAnimation", false);
+                            Boolean textColor = prefs.getBoolean("textColorChange", false);
+                            Boolean bgColor = prefs.getBoolean("backgroundColorChange", false);
 
-            clockView.setPongAnimation(pongAni);
-            clockView.setTextColor(textColor);
-            clockView.setBackgroundColorChange(bgColor);
+                            /*
+
+                            NOT GETTING HERE IS THE PROBLEM RIGHT NOW
+                             */
+
+                            System.err.println("pongAni: " + pongAni);
+
+                            clockView.setPongAnimation(pongAni);
+                            clockView.setTextColor(textColor);
+                            clockView.setBackgroundColorChange(bgColor);
+
+                        }
+                    };
+            sharedPref.registerOnSharedPreferenceChangeListener(listener);
 
         }
 }
