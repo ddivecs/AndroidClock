@@ -1,6 +1,7 @@
 package com.example.darren.clock;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -100,6 +101,19 @@ public class ClockView extends View{
 
     public ClockView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.ClockView,
+                0, 0);
+
+        try{
+            pongAnimation = a.getBoolean(R.styleable.ClockView_pongAnimation, false);
+            militaryTime = a.getBoolean(R.styleable.ClockView_militaryTime, false);
+            textColor = a.getBoolean(R.styleable.ClockView_textColor, false);
+            backgroundColorChange = a.getBoolean(R.styleable.ClockView_backgroundColorChange, false);
+        }finally{
+            a.recycle();
+        }
         init(attrs, 0);
     }
 
