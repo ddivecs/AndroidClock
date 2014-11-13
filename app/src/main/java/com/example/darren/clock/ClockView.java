@@ -213,7 +213,7 @@ public class ClockView extends View{
             int currHours = c.get(Calendar.HOUR);
 
             int colorR = (int)((numHours/2 - Math.abs(numHours/2 - currHours)) * 255/(numHours/2));
-            int colorG = (int)((numMins/2-Math.abs(numMins/2-currMins)) * 255/(numMins/2));
+            int colorG = (int)((numMins/2 - Math.abs(numMins/2-currMins)) * 255/(numMins/2));
             int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
 
             canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
