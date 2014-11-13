@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
                         TextView textView = (TextView)findViewById(R.id.textViewCounter);
                         ClockView clockView = (ClockView)findViewById(R.id.clockView);
 
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss.SSS");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss");
                         Date date = new Date();
                         textView.setText(dateFormat.format(date));
 
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                     }
                 });
             }
-        }, 0, 100);
+        }, 0, 1000);
     }
 
 
