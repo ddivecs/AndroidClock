@@ -109,7 +109,9 @@ public class ClockView extends View{
     }
 
     private void init(AttributeSet attrs, int defStyleAttr){
+
         numHours = 12;
+
         numMins = 60;
         numSecs = 60;
 
@@ -187,35 +189,39 @@ public class ClockView extends View{
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
+        if(pongAnimation){
+            if(!backgroundColorChange || c.get(Calendar.AM_PM) == Calendar.AM)
+                _clockPaint.setColor(Color.WHITE);
+            else
+                _clockPaint.setColor(Color.BLACK);
+            int currSeconds = c.get(Calendar.SECOND);
+            int currMins = c.get(Calendar.MINUTE);
+            int currHours = c.get(Calendar.HOUR);
 
-        if(c.get(Calendar.AM_PM) == Calendar.AM)
-            _clockPaint.setColor(Color.WHITE);
-        else
-            _clockPaint.setColor(Color.BLACK);
-        int currSeconds = c.get(Calendar.SECOND);
-        int currMins = c.get(Calendar.MINUTE);
-        int currHours = c.get(Calendar.HOUR);
+            int colorR = (int)((numHours/2 - Math.abs(numHours/2 - currHours)) * 255/(numHours/2));
+            int colorG = (int)((numMins/2-Math.abs(numMins/2-currMins)) * 255/(numMins/2));
+            int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
 
-        int colorR = (int)((numHours/2 - Math.abs(numHours/2 - currHours)) * 255/(numHours/2));
-        int colorG = (int)((numMins/2-Math.abs(numMins/2-currMins)) * 255/(numMins/2));
-        int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
+            canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
 
-        canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
-
-        _clockPaint.setColor(Color.RED);
-        //draw the three rectangles
-        canvas.drawRect(0, (int)leftPaddleTop, (int)paddleWidth, (int)leftPaddleTop + (int)leftPaddleHeight, _clockPaint);
-
-
-        canvas.drawRect(getWidth() - (int) paddleWidth, (int) rightPaddleTop, getWidth(), (int) rightPaddleTop + (int) rightPaddleHeight, _clockPaint);
-        //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
-
-        _clockPaint.setTextSize(ballHeight);
-        _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
+            _clockPaint.setColor(Color.RED);
+            //draw the three rectangles
+            canvas.drawRect(0, (int)leftPaddleTop, (int)paddleWidth, (int)leftPaddleTop + (int)leftPaddleHeight, _clockPaint);
 
 
-        canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
-        canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
-        canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
+            canvas.drawRect(getWidth() - (int) paddleWidth, (int) rightPaddleTop, getWidth(), (int) rightPaddleTop + (int) rightPaddleHeight, _clockPaint);
+            //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
+
+            _clockPaint.setTextSize(ballHeight);
+            if(textColor)
+                _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
+            else
+                _clockPaint.setColor(Color.GRAY);
+
+
+            canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
+            canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
+            canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
+        }
     }
 }
