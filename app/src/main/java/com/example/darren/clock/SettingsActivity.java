@@ -20,11 +20,6 @@ public class SettingsActivity extends PreferenceActivity{
 
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 
-            for(int i = 0; i < 10; i++)
-                System.err.println("******");
-
-
-
             //display fragment as main activity
             getFragmentManager().beginTransaction()
                     .replace(android.R.id.content, new SettingsActivityFragment())
@@ -38,10 +33,6 @@ public class SettingsActivity extends PreferenceActivity{
                             Boolean textColor = prefs.getBoolean("textColorChange", false);
                             Boolean bgColor = prefs.getBoolean("backgroundColorChange", false);
 
-                            /*
-
-                            NOT GETTING HERE IS THE PROBLEM RIGHT NOW
-                             */
 
                             System.err.println("pongAni: " + pongAni);
 
@@ -52,6 +43,5 @@ public class SettingsActivity extends PreferenceActivity{
                         }
                     };
             sharedPref.registerOnSharedPreferenceChangeListener(listener);
-
         }
 }

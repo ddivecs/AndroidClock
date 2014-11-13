@@ -2,6 +2,7 @@ package com.example.darren.clock;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -47,6 +48,24 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        ClockView clockView = (ClockView)findViewById(R.id.clockView);
+        Boolean pongAni = prefs.getBoolean("pongAnimation", false);
+        Boolean textColor = prefs.getBoolean("textColorChange", false);
+        Boolean bgColor = prefs.getBoolean("backgroundColorChange", false);
+
+                            /*
+
+                            NOT GETTING HERE IS THE PROBLEM RIGHT NOW
+                             */
+
+        System.err.println("pongAni: " + pongAni);
+
+        clockView.setPongAnimation(pongAni);
+        clockView.setTextColor(textColor);
+        clockView.setBackgroundColorChange(bgColor);
 
         // We are using a few anonymous classes here; which makes the code a little more
         // complex looking than it really is. The schedule method of Timer takes in a TimerTask,
