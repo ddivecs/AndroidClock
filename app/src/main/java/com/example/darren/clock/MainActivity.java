@@ -3,6 +3,7 @@ package com.example.darren.clock;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //PreferenceManager.setDefaultValues();
 
         // We are using a few anonymous classes here; which makes the code a little more
         // complex looking than it really is. The schedule method of Timer takes in a TimerTask,

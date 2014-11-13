@@ -6,6 +6,7 @@
         <attr name="textColor" format="boolean" />
         <attr name="backgroundColorChange" format="boolean" />
         <attr name="militaryTime" format="boolean" />
+        <attr name="paddleColor" format="color" />
     </declare-styleable>
 
 </resources>

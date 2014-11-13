@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Clock</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="textColorString">Text Color Change</string>
+    <string name="backgroundColorString">Background Color Change</string>
     <string name="action_settings">Settings</string>
 
 </resources>
