@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //PreferenceManager.setDefaultValues();
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // We are using a few anonymous classes here; which makes the code a little more
         // complex looking than it really is. The schedule method of Timer takes in a TimerTask,
@@ -91,6 +91,10 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+
+            getFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, new SettingsActivityFragment())
+                    .commit();
             return true;
         }
         return super.onOptionsItemSelected(item);

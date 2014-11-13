@@ -14,7 +14,8 @@ public class SettingsActivity extends Activity {
 
         //display fragment as main activity
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new Fragment())
+                .replace(android.R.id.content, new SettingsActivityFragment())
                 .commit();
     }
+
 }

@@ -15,8 +15,8 @@
         />
 
     <CheckBoxPreference
-        android:key="textColorChange"
-        android:title="@string/textColorString"
+        android:key="pongAnimation"
+        android:title="@string/pongAnimation"
         android:defaultValue="true"
         />
 
