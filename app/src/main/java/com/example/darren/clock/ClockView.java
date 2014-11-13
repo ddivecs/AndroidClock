@@ -15,42 +15,42 @@ import java.util.Calendar;
 public class ClockView extends View{
 
     private Paint _clockPaint = new Paint();
-    private double leftPaddleTop, leftPaddleHeight, rightPaddleTop, rightPaddleHeight, paddleWidth,
+    private float leftPaddleTop, leftPaddleHeight, rightPaddleTop, rightPaddleHeight, paddleWidth,
         ballWidth, ballHeight, ballTop, ballLeft, numHours, numMins, numSecs;
 
     Calendar c = Calendar.getInstance();
 
-    public double getLeftPaddleTop() {
+    public float getLeftPaddleTop() {
         return leftPaddleTop;
     }
 
     public void setLeftPaddleTop(int leftPaddleTop) {  this.leftPaddleTop = leftPaddleTop;    }
 
-    public double getLeftPaddleHeight() {
+    public float getLeftPaddleHeight() {
         return leftPaddleHeight;
     }
 
     public void setLeftPaddleHeight(int leftPaddleHeight) {this.leftPaddleHeight = leftPaddleHeight;    }
 
-    public double getRightPaddleTop() {
+    public float getRightPaddleTop() {
         return rightPaddleTop;
     }
 
     public void setRightPaddleTop(int rightPaddleTop) {  this.rightPaddleTop = rightPaddleTop;    }
 
-    public double getRightPaddleHeight() {
+    public float getRightPaddleHeight() {
         return rightPaddleHeight;
     }
 
     public void setRightPaddleHeight(int rightPaddleHeight) {this.rightPaddleHeight = rightPaddleHeight;    }
 
-    public double getBallTop() {
+    public float getBallTop() {
         return ballTop;
     }
 
     public void setBallTop(int ballTop) {   this.ballTop = ballTop;    }
 
-    public double getBallLeft() {
+    public float getBallLeft() {
         return ballLeft;
     }
 
@@ -142,7 +142,7 @@ public class ClockView extends View{
         double rightY = rightPaddleTop + rightPaddleHeight/2;
 
 
-        ballTop = (leftY-rightY)/(-1*(getWidth() -  2.0*paddleWidth )) * ballLeft + (leftPaddleTop + 40);
+        ballTop = (float)(leftY-rightY)/(-1*(getWidth() -  2*paddleWidth )) * ballLeft + (leftPaddleTop + 40);
         invalidate();
     }
 
@@ -150,10 +150,18 @@ public class ClockView extends View{
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
+        _clockPaint.setColor(Color.RED);
         //draw the three rectangles
         canvas.drawRect(0, (int)leftPaddleTop, (int)paddleWidth, (int)leftPaddleTop + (int)leftPaddleHeight, _clockPaint);
+
+
         canvas.drawRect(getWidth()-(int)paddleWidth, (int)rightPaddleTop, getWidth(), (int)rightPaddleTop + (int)rightPaddleHeight, _clockPaint);
-        canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
-        //canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop, ballLeft + ballWidth, ballTop + ballHeight, _clockPaint);
+        //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
+
+        _clockPaint.setTextSize(ballHeight);
+        _clockPaint.setColor(Color.BLACK);
+        canvas.drawText(c.get(Calendar.HOUR)+"", 0, (float)leftPaddleTop, _clockPaint);
+        canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
+        canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
     }
 }
