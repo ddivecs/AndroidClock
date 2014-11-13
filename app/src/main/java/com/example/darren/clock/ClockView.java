@@ -155,8 +155,14 @@ public class ClockView extends View{
             _clockPaint.setColor(Color.WHITE);
         else
             _clockPaint.setColor(Color.BLACK);*/
+        int currSeconds = c.get(Calendar.SECOND);
+        int currMins = c.get(Calendar.MINUTE);
+        int currHours = c.get(Calendar.HOUR);
 
-        _clockPaint.setColor( Color.rgb(c.get(Calendar.HOUR) * 255/12,c.get(Calendar.MINUTE) * 255/60,c.get(Calendar.SECOND) *255/60));
+        int colorR = (int)((numHours/2 - Math.abs(numHours/2 - currHours)) * 255/(numHours/2));
+        int colorG = (int)((numMins/2-Math.abs(numMins/2-currMins)) * 255/(numMins/2));
+        int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
+        _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
         canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
 
         _clockPaint.setColor(Color.RED);
