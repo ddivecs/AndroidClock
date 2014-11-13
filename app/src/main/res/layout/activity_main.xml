@@ -14,14 +14,15 @@
         android:id="@+id/clockView"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="yyyy-MM-dd\nHH:mm:ss:SSS"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="yyyy-MM-dd\nHH:mm:ss"
         android:textSize="48sp"
         android:id="@+id/textViewCounter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="#808080"/>
+        android:textColor="#808080"
+        android:gravity="center"/>
 
 
 

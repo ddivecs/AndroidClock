@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Color changing times"
+        android:id="@+id/textColorEnabled"
+        android:gravity="center"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Allow background color changing"
+        android:id="@+id/backgroundColorChange"
+        android:gravity="center"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pong animation"
+        android:id="@+id/pongAnimation"
+        android:gravity="center"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Military time"
+        android:id="@+id/militaryTime"
+        android:gravity="center"/>
+</LinearLayout>

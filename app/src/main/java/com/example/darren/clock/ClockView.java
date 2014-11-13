@@ -18,7 +18,44 @@ public class ClockView extends View{
     private float leftPaddleTop, leftPaddleHeight, rightPaddleTop, rightPaddleHeight, paddleWidth,
         ballWidth, ballHeight, ballTop, ballLeft, numHours, numMins, numSecs;
 
+    //all the settings that are able to be changed in settings
+    private boolean textColor, backgroundColorChange, pongAnimation, militaryTime;
+    private Color paddleColor;
+
+
     Calendar c = Calendar.getInstance();
+
+    public void setTextColor(){
+        if(textColor){
+            textColor = false;
+        }else
+            textColor = true;
+    }
+
+    public void setBackgroundColorChange(){
+        if(backgroundColorChange)
+            backgroundColorChange = false;
+        else
+            backgroundColorChange = true;
+    }
+
+    public void setPongAnimation(){
+        if(pongAnimation)
+            pongAnimation = false;
+        else
+            pongAnimation = true;
+    }
+
+    public void setMilitaryTime(){
+        if(militaryTime)
+            militaryTime = false;
+        else
+            militaryTime = true;
+    }
+
+    public void setPaddleColor(Color color){
+        paddleColor = color;
+    }
 
     public float getLeftPaddleTop() {
         return leftPaddleTop;
@@ -175,6 +212,8 @@ public class ClockView extends View{
 
         _clockPaint.setTextSize(ballHeight);
         _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
+
+
         canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
         canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
         canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
