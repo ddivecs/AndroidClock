@@ -170,14 +170,14 @@ public class ClockView extends View {
             _clockPaint.setTextSize(ballHeight);
             if(textColor)
                 _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
-            else if(c.get(Calendar.AM_PM) == Calendar.AM)
+            else if(!backgroundColorChange || c.get(Calendar.AM_PM) == Calendar.AM)
                 _clockPaint.setColor(Color.BLACK);
             else
                 _clockPaint.setColor(Color.WHITE);
 
             //Add numbers to paddles and print "ball"
             if(c.get(Calendar.HOUR) == 0){
-                canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop + leftPaddleHeight + ballHeight, _clockPaint);
+                canvas.drawText("12", 0, (float) leftPaddleTop + leftPaddleHeight + ballHeight, _clockPaint);
             }else {
                 canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
             }
