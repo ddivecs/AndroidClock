@@ -137,7 +137,7 @@ public class ClockView extends View {
         //ball settings
         ballTop = 0;
         ballWidth = 20;
-        ballHeight = 20;
+        ballHeight = 40;
 
 
         if(currMins < 31) {
@@ -225,9 +225,18 @@ public class ClockView extends View {
             else
                 _clockPaint.setColor(Color.GRAY);
 
+            if(c.get(Calendar.HOUR) == 0){
+                canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop + leftPaddleHeight + ballHeight, _clockPaint);
+            }else {
+                canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
+            }
 
-            canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop, _clockPaint);
-            canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
+            if(c.get(Calendar.MINUTE) == 0){
+                canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop + rightPaddleHeight + ballHeight, _clockPaint);
+            }else {
+                canvas.drawText(c.get(Calendar.MINUTE)+"", getWidth()-ballHeight, rightPaddleTop, _clockPaint);
+            }
+
             canvas.drawText((c.get(Calendar.SECOND))+"", ballLeft, ballTop+ballHeight, _clockPaint);
         }
     }

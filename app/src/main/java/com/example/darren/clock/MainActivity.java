@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
 
             Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -134,5 +134,17 @@ public class MainActivity extends Activity {
         //view.setEnabled(false);
 
 
+    }
+
+    protected void onActivityResult(int RequestCode, int resultCode, Intent data){
+        if(data != null) {
+            ClockView clockView = (ClockView) findViewById(R.id.clockView);
+
+            clockView.setPongAnimation(data.getBooleanExtra("pongAni", false));
+            clockView.setTextColor(data.getBooleanExtra("textColor", false));
+            clockView.setBackgroundColorChange(data.getBooleanExtra("bgColor", false));
+        }else{
+            System.err.println("data was null");
+        }
     }
 }
