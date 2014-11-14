@@ -16,6 +16,7 @@ import android.util.Log;
 public class SettingsActivity extends PreferenceActivity{
 
         Boolean pongAni, textColor, bgColor;
+        String paddleColor;
 
         @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -32,19 +33,13 @@ public class SettingsActivity extends PreferenceActivity{
                     new SharedPreferences.OnSharedPreferenceChangeListener() {
                         public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 
-                            //ClockView clockView = (ClockView)findViewById(R.id.clockView);
+                            System.err.println("before setting things up");
+
                             pongAni = prefs.getBoolean("pongAnimation", false);
                             textColor = prefs.getBoolean("textColorChange", false);
                             bgColor = prefs.getBoolean("backgroundColorChange", false);
 
-
-//                            onActivityResult(1, RESULT_OK, new Intent());
-
-                           //System.err.println("pongAni: " + pongAni);
-//
-//                            clockView.setPongAnimation(pongAni);
-//                            clockView.setTextColor(textColor);
-//                            clockView.setBackgroundColorChange(bgColor);
+                            System.err.println("paddleColor = " + paddleColor);
 
                         }
                     };
@@ -60,9 +55,6 @@ public class SettingsActivity extends PreferenceActivity{
         toReturn.putExtra("textColor", textColor);
         toReturn.putExtra("bgColor", bgColor);
 
-        System.err.println("Added extras to toReturn");
-
-        System.err.println("Back button pressed");
         setResult(1, toReturn);
         super.onBackPressed();
     }

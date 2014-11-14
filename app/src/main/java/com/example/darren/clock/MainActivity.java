@@ -3,6 +3,7 @@ package com.example.darren.clock;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -55,13 +56,9 @@ public class MainActivity extends Activity {
         Boolean pongAni = prefs.getBoolean("pongAnimation", false);
         Boolean textColor = prefs.getBoolean("textColorChange", false);
         Boolean bgColor = prefs.getBoolean("backgroundColorChange", false);
+        String paddleColor = prefs.getString("paddleColor", "RED");
 
-                            /*
-
-                            NOT GETTING HERE IS THE PROBLEM RIGHT NOW
-                             */
-
-        System.err.println("pongAni: " + pongAni);
+        System.err.println("paddleColor = " + paddleColor);
 
         clockView.setPongAnimation(pongAni);
         clockView.setTextColor(textColor);
@@ -82,14 +79,19 @@ public class MainActivity extends Activity {
                     public void run(){
                         TextView textView = (TextView)findViewById(R.id.textViewCounter);
                         ClockView clockView = (ClockView)findViewById(R.id.clockView);
+                        Calendar c = Calendar.getInstance();
 
                         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd\nHH:mm:ss");
                         Date date = new Date();
+                        //Set text of clock to black when bg is white, and vice versa
+                        if(!clockView.getBackgroundColorChange() || c.get(Calendar.AM_PM) == Calendar.AM)
+                                textView.setTextColor(Color.BLACK);
+                        else
+                                textView.setTextColor(Color.WHITE);
+
                         textView.setText(dateFormat.format(date));
 
                         clockView.update();
-                        //clockView.requestLayout();
-                        //_uiHandler.postDelayed(this, 1000);
                     }
                 });
             }
@@ -127,11 +129,6 @@ public class MainActivity extends Activity {
         // The "view" in this case is the view that triggered the event
         // We disable the start timer button so that it cannot be triggered more than once
         view.setEnabled(false);
-
-        // The code below would also work to disable the button
-        // I include it here for illustrative purposes
-        //View buttonView = findViewById(R.id.buttonStartTimer);
-        //view.setEnabled(false);
 
 
     }

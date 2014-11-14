@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -22,8 +23,7 @@ public class ClockView extends View {
         ballWidth, ballHeight, ballTop, ballLeft, numHours, numMins, numSecs;
 
     //all the settings that are able to be changed in settings
-    private boolean textColor, backgroundColorChange, pongAnimation, militaryTime;
-    private Color paddleColor;
+    private boolean textColor, backgroundColorChange, pongAnimation;
 
 
     Calendar c = Calendar.getInstance();
@@ -40,52 +40,9 @@ public class ClockView extends View {
         pongAnimation = pongAni;
     }
 
-    public void setMilitaryTime(){
-        if(militaryTime)
-            militaryTime = false;
-        else
-            militaryTime = true;
-    }
+    public Boolean getPongAnimation() { return pongAnimation; }
 
-    public void setPaddleColor(Color color){
-        paddleColor = color;
-    }
-
-    public float getLeftPaddleTop() {
-        return leftPaddleTop;
-    }
-
-    public void setLeftPaddleTop(int leftPaddleTop) {  this.leftPaddleTop = leftPaddleTop;    }
-
-    public float getLeftPaddleHeight() {
-        return leftPaddleHeight;
-    }
-
-    public void setLeftPaddleHeight(int leftPaddleHeight) {this.leftPaddleHeight = leftPaddleHeight;    }
-
-    public float getRightPaddleTop() {
-        return rightPaddleTop;
-    }
-
-    public void setRightPaddleTop(int rightPaddleTop) {  this.rightPaddleTop = rightPaddleTop;    }
-
-    public float getRightPaddleHeight() {
-        return rightPaddleHeight;
-    }
-
-    public void setRightPaddleHeight(int rightPaddleHeight) {this.rightPaddleHeight = rightPaddleHeight;    }
-
-    public float getBallTop() {
-        return ballTop;
-    }
-
-    public void setBallTop(int ballTop) {   this.ballTop = ballTop;    }
-
-    public float getBallLeft() {
-        return ballLeft;
-    }
-
-    public void setBallLeft(int ballLeft) {this.ballLeft = ballLeft;}
+    public Boolean getBackgroundColorChange() { return backgroundColorChange; }
 
     public ClockView(Context context) {
         super(context);
@@ -101,7 +58,6 @@ public class ClockView extends View {
 
         try{
             pongAnimation = a.getBoolean(R.styleable.ClockView_pongAnimation, false);
-            militaryTime = a.getBoolean(R.styleable.ClockView_militaryTime, false);
             textColor = a.getBoolean(R.styleable.ClockView_textColor, false);
             backgroundColorChange = a.getBoolean(R.styleable.ClockView_backgroundColorChange, false);
         }finally{
@@ -118,7 +74,6 @@ public class ClockView extends View {
     private void init(AttributeSet attrs, int defStyleAttr){
 
         numHours = 12;
-
         numMins = 60;
         numSecs = 60;
 
@@ -161,33 +116,16 @@ public class ClockView extends View {
         int currMins = c.get(Calendar.MINUTE);
         int currHours = c.get(Calendar.HOUR);
 
-        //set paddle top locations (their height stays the same)
-        //height - 100 (so the top doesn't reach the bottom of the screen)
-        //leftPaddleTop = (getHeight()-leftPaddleHeight)/12*currHours;
-        //rightPaddleTop = (getHeight()-rightPaddleHeight)/60*currMins;
-
+        //Move the paddles up or down
         leftPaddleTop = (getHeight()-leftPaddleHeight)/(numHours/2) * (numHours/2 - Math.abs(numHours/2 - currHours)) ;
         rightPaddleTop = (getHeight()-rightPaddleHeight)/(numMins/2)*(numMins/2-Math.abs(numMins/2-currMins));
-        //paddle movement settings
-        //This was a test thing so see if we want to keep this in the works
-        double hourPaddleMovement = (getHeight()-leftPaddleHeight)/12;
-        double minPaddleMovement = (getHeight()-rightPaddleHeight)/60;
 
-        //ball settings
-        /*if(currSeconds < 31) {
-            //width - ball+paddle width into 30 sections * num of mins passed
-            ballLeft = (getWidth() - 30) / 30 * currSeconds;
-        }else{
-            ballLeft = (getWidth() - 30) / 30 * (60-currSeconds);
-        }*/
-
-
-        ballLeft = (getWidth() - numSecs/2)/(numSecs/2) * (numSecs/2 - Math.abs(numSecs/2-currSeconds)) + paddleWidth;
-
+        //Calculate the midpoints of the left and right paddles
         double leftY = leftPaddleTop+leftPaddleHeight/2;
         double rightY = rightPaddleTop + rightPaddleHeight/2;
 
-
+        //Change ball settings
+        ballLeft = (getWidth() - numSecs/2)/(numSecs/2) * (numSecs/2 - Math.abs(numSecs/2-currSeconds)) + paddleWidth;
         ballTop = (float)(leftY-rightY)/(-1*(getWidth() -  2*paddleWidth )) * ballLeft + (leftPaddleTop + 40);
         invalidate();
     }
@@ -196,11 +134,21 @@ public class ClockView extends View {
     public void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
+
+        if(!backgroundColorChange || c.get(Calendar.AM_PM) == Calendar.AM) {
+            _clockPaint.setColor(Color.WHITE);
+
+        }
+        else{
+            _clockPaint.setColor(Color.BLACK);
+
+        }
+
+        canvas.drawRect(0, 0, getWidth(), getHeight(), _clockPaint);
+
         if(pongAnimation){
-            if(!backgroundColorChange || c.get(Calendar.AM_PM) == Calendar.AM)
-                _clockPaint.setColor(Color.WHITE);
-            else
-                _clockPaint.setColor(Color.BLACK);
+
+
             int currSeconds = c.get(Calendar.SECOND);
             int currMins = c.get(Calendar.MINUTE);
             int currHours = c.get(Calendar.HOUR);
@@ -209,22 +157,25 @@ public class ClockView extends View {
             int colorG = (int)((numMins/2 - Math.abs(numMins/2-currMins)) * 255/(numMins/2));
             int colorB = (int)((numSecs/2 - Math.abs(numSecs/2-currSeconds)) *255/(numSecs/2));
 
-            canvas.drawRect(0,0,getWidth(),getHeight(), _clockPaint);
+
+
 
             _clockPaint.setColor(Color.RED);
-            //draw the three rectangles
+
+            //draw the paddles
             canvas.drawRect(0, (int)leftPaddleTop, (int)paddleWidth, (int)leftPaddleTop + (int)leftPaddleHeight, _clockPaint);
-
-
             canvas.drawRect(getWidth() - (int) paddleWidth, (int) rightPaddleTop, getWidth(), (int) rightPaddleTop + (int) rightPaddleHeight, _clockPaint);
-            //canvas.drawRect((int)ballLeft, (int)ballTop, (int)ballLeft + (int)ballWidth, (int)ballTop + (int)ballHeight, _clockPaint);
+
 
             _clockPaint.setTextSize(ballHeight);
             if(textColor)
                 _clockPaint.setColor( Color.rgb(colorR,colorG,colorB));
+            else if(c.get(Calendar.AM_PM) == Calendar.AM)
+                _clockPaint.setColor(Color.BLACK);
             else
-                _clockPaint.setColor(Color.GRAY);
+                _clockPaint.setColor(Color.WHITE);
 
+            //Add numbers to paddles and print "ball"
             if(c.get(Calendar.HOUR) == 0){
                 canvas.drawText(c.get(Calendar.HOUR) + "", 0, (float) leftPaddleTop + leftPaddleHeight + ballHeight, _clockPaint);
             }else {

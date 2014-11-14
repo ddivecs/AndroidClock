@@ -12,9 +12,6 @@
     <com.example.darren.clock.ClockView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        custom:pongAnimation="true"
-        custom:militaryTime="false"
-        custom:textColor="true"
         custom:backgroundColorChange="true"
         android:id="@+id/clockView"/>
 
